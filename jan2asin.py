@@ -7,7 +7,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 import streamlit as st
 from selenium.webdriver.common.by import By
 
-st.set_page_config(page_title="BUYMA 問い合わせ検索ツール")
+st.set_page_config(page_title="JAN2ASIN")
 
 st.title("JAN2ASIN")
 
