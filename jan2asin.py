@@ -6,7 +6,8 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 import streamlit as st
 from selenium.webdriver.common.by import By
-
+from selenium.webdriver.chrome import service as fs
+from selenium.webdriver.common.keys import Keys
 st.set_page_config(page_title="JAN2ASIN")
 
 st.title("JAN2ASIN")
@@ -28,7 +29,7 @@ if st.sidebar.button("検索開始"):
         chrome_options.add_argument('--disable-dev-shm-usage') 
         driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
         driver.maximize_window()
-        driver.implicitly_wait(3)
+        driver.implicitly_wait(5)
     
     st.markdown("2. JANコードを検索。")
     with st.spinner("JANコードを検索中..."):
