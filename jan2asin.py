@@ -66,8 +66,7 @@ if st.sidebar.button("検索開始"):
         st.stop()
     else:
         df = pd.read_csv(file,header=None)
-        jans = df.iloc[:,0].to_list()
-        jans.insert(0, 0)
+        jans = df.iloc[:,0]
 
     with col2:
         st.subheader("検索結果")
