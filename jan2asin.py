@@ -65,7 +65,7 @@ if st.sidebar.button("検索開始"):
         st.warning("CSVファイルを入力してください")
         st.stop()
     else:
-        df = pd.read_csv(file,encoding="utf-8-sig")
+        df = pd.read_csv(file)
         jans = df["jan"].tolist()
 
     with col2:
