@@ -15,6 +15,17 @@ st.title("JAN2ASIN")
 st.sidebar.title("JAN2ASIN")
 jan =  st.sidebar.text_input("JANコード")
 
+def driver_set():
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--no-sandbox')  
+    chrome_options.add_argument('--disable-dev-shm-usage') 
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+    driver.maximize_window()
+    driver.implicitly_wait(5)
+    return driver
+
+
 if not jan:
     st.warning("JANコードを入力してください")
     st.stop()
@@ -23,13 +34,7 @@ if st.sidebar.button("検索開始"):
     st.markdown("1. 検索ツールを立ち上げます。")
 
     with st.spinner("現在検索ツール立ち上げ中"):
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_argument('--headless')
-        chrome_options.add_argument('--no-sandbox')  
-        chrome_options.add_argument('--disable-dev-shm-usage') 
-        driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
-        driver.maximize_window()
-        driver.implicitly_wait(5)
+        driver = driver_set()
     
     st.markdown("2. JANコードを検索。")
     with st.spinner("JANコードを検索中..."):
