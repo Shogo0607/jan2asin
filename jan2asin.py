@@ -65,7 +65,8 @@ if st.sidebar.button("検索開始"):
         st.warning("CSVファイルを入力してください")
         st.stop()
     else:
-        jans = pd.read_csv(file,header=None)
+        df = pd.read_csv(file)
+        jans = df.iloc[:,0].to_list()
 
     with col2:
         st.subheader("検索結果")
