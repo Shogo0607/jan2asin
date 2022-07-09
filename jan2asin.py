@@ -7,12 +7,18 @@ import streamlit as st
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome import service as fs
 from selenium.webdriver.common.keys import Keys
+import concurrent.futures
+
+
+
+
 st.set_page_config(page_title="JAN2ASIN")
 
 st.title("JAN2ASIN")
 
 st.sidebar.title("JAN2ASIN")
-jan =  st.sidebar.text_input("JANコード")
+# jan =  st.sidebar.text_input("JANコード")
+jans = ["4901777216884","4901777216884","4901777216884","4901777216884"]
 
 def driver_set():
     chrome_options = webdriver.ChromeOptions()
@@ -24,17 +30,10 @@ def driver_set():
     driver.implicitly_wait(5)
     return driver
 
-
-if not jan:
-    st.warning("JANコードを入力してください")
-    st.stop()
-
-if st.sidebar.button("検索開始"):
+def main(jan):
     st.markdown("1. 検索ツールを立ち上げます。")
-
     with st.spinner("現在検索ツール立ち上げ中"):
         driver = driver_set()
-    
     st.markdown("2. JANコードを検索。")
     with st.spinner("JANコードを検索中..."):
         driver.get("https://mnsearch.com/search?kwd="+str(jan))
@@ -47,3 +46,8 @@ if st.sidebar.button("検索開始"):
         st.write("商品名：",item_list_text)
         st.write("ASIN：",asin_text)
         driver.close()
+
+if st.sidebar.button("検索開始"):
+    executor = concurrent.futures.ThreadPoolExecutor(max_workers=2)
+    for jan in jans:
+        executor.submit(main,jan)
