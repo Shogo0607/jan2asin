@@ -66,7 +66,7 @@ if st.sidebar.button("検索開始"):
         st.stop()
     else:
         df = pd.read_csv(file,encoding="utf-8-sig")
-        jans = df["jan"]
+        jans = df["jan"].tolist()
 
     with col2:
         st.subheader("検索結果")
