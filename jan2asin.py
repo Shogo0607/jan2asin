@@ -19,7 +19,7 @@ col1,col2 = st.columns(2)
 with col1:
     st.subheader("手順")
     image = Image.open('./example.png')
-    st.write("CSVはヘッダーを付けず、下記のように縦に入力したファイルをアップロードしてください")
+    st.write("CSVは[jan]とヘッダーを付けて、下記のように縦に入力したファイルをアップロードしてください")
     st.image(image, caption='CSVの入力例',width=300)
 
 file = st.sidebar.file_uploader("CSVファイルを入力してください",type=["csv"])
