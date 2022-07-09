@@ -50,8 +50,8 @@ def main(jan):
         asin_xpath = '//*[@id="__main_content"]/section[3]/section[3]/section[2]/section/div[1]/span'
         asin_text = driver.find_element(By.XPATH, asin_xpath).text
     except:
-        asin_text = ""
-        item_list_text = ""
+        asin_text = "検索結果なし"
+        item_list_text = "検索結果なし"
     driver.close()
     return jan, asin_text, item_list_text, 
 
@@ -67,7 +67,6 @@ if st.sidebar.button("検索開始"):
     else:
         df = pd.read_csv(file,header=None)
         jans = df.iloc[:,0].to_list()
-        st.write(jans)
 
     with col2:
         st.subheader("検索結果")
@@ -85,5 +84,6 @@ if st.sidebar.button("検索開始"):
 
         output = pd.concat([jan_df,asin_df,item_df],axis=1)
         output.columns = ["JANコード","ASINコード","商品名"]
+        st.dataframe(output)
         csv = convert_df(output)
         st.download_button(label="Download data as CSV",data=csv,file_name='ASIN.csv',mime='text/csv',)
