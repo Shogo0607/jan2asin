@@ -80,9 +80,14 @@ if st.sidebar.button("検索開始"):
             with ThreadPoolExecutor(max_workers=5) as executor:
                 futures = [executor.submit(main, value) for value in jans]
                 for future in as_completed(futures):
-                    jan_list.append(future.result()[0])
-                    asin_list.append(future.result()[1])
-                    item_list.append(future.result()[2])
+                    try:
+                        jan_list.append(future.result()[0])
+                        asin_list.append(future.result()[1])
+                        item_list.append(future.result()[2])
+                    except:
+                        jan_list.append("")
+                        asin_list.append("")
+                        item_list.append("")
     
         jan_df = pd.DataFrame(jan_list)
         asin_df = pd.DataFrame(asin_list)
