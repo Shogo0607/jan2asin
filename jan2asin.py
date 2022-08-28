@@ -66,12 +66,18 @@ if st.sidebar.button("検索開始"):
         st.stop()
     else:
         df = pd.read_csv(file)
-        jans = df["jan"].tolist()
+        if len(df) < 60:
+            length = len(df)
+            df_split = df[:length]
+        else:
+            df_split = df[:60]
+        df_split = df[:60]
+        jans = df_split["jan"].tolist()
 
     with col2:
         st.subheader("検索結果")
         with st.spinner("現在検索中..."):
-            with ThreadPoolExecutor(max_workers=60) as executor:
+            with ThreadPoolExecutor(max_workers=30) as executor:
                 futures = [executor.submit(main, value) for value in jans]
                 for future in as_completed(futures):
                     jan_list.append(future.result()[0])
