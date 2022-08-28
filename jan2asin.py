@@ -77,7 +77,7 @@ if st.sidebar.button("検索開始"):
     with col2:
         st.subheader("検索結果")
         with st.spinner("現在検索中..."):
-            with ThreadPoolExecutor(max_workers=10) as executor:
+            with ThreadPoolExecutor(max_workers=5) as executor:
                 futures = [executor.submit(main, value) for value in jans]
                 for future in as_completed(futures):
                     jan_list.append(future.result()[0])
